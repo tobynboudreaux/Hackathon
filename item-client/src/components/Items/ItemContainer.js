@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { ItemCard } from "./ItemCard";
 import { AddItem } from "./AddItem";
+import Modal from "@material-ui/core/Modal";
 
 const user = { user: { id: 1, username: "Toby", password: "RaginCajun" } };
 
@@ -50,19 +51,23 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(2),
   },
+  modalStyle: {
+    width: 500,
+  },
 }));
 
 export const ItemContainer = () => {
   const [formDisplay, setFormDisplay] = useState("none");
+  const [open, setOpen] = React.useState(false);
 
   const classes = useStyles();
 
   const displayForm = (event) => {
-    setFormDisplay("block");
+    setOpen(true);
   };
 
   const closeForm = (event) => {
-    setFormDisplay("none");
+    setOpen(false);
   };
 
   const renderItems = () => {
@@ -81,10 +86,21 @@ export const ItemContainer = () => {
       <Button onClick={displayForm} variant="contained" color="primary">
         Add Item
       </Button>
-      {/* <div style={{ display: { formDisplay } }} id="add-item-form"> */}
-      <div style={{ display: `${formDisplay}` }} id="add-item-form">
-        <AddItem returnClose={closeForm} />
+      <div>
+        <Modal
+          // className={classes.modalStyle}
+          open={open}
+          onClose={closeForm}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <AddItem returnClose={closeForm} />
+        </Modal>
       </div>
+      {/* <div style={{ display: { formDisplay } }} id="add-item-form"> */}
+      {/* <div style={{ display: `${formDisplay}` }} id="add-item-form">
+        <AddItem returnClose={closeForm} />
+      </div> */}
       <Grid
         container
         justify="center"

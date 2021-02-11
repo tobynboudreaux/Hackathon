@@ -38,36 +38,28 @@ export const AddItem = (props) => {
   const classes = useStyles();
 
   const [item, setItem] = useState({
-    item: {
+    categoryId: 0,
+    itemName: "",
+    quantity: 1,
+    description: "",
+    image: "",
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("new item submitted!", item);
+    setItem({
       categoryId: 0,
       itemName: "",
       quantity: 1,
       description: "",
       image: "",
-    },
-  });
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("new item submitted!", item);
-    setItem({
-      [item]: {
-        categoryId: 0,
-        itemName: "",
-        quantity: 1,
-        description: "",
-        image: "",
-      },
     });
-    console.log("new state", item);
     props.returnClose();
   };
 
   const handleChange = (event) => {
-    console.log(event.target.name, event.target.value);
-    setItem((prevState) => ({
-      ...prevState,
-      item: { ...prevState.item, [event.target.name]: event.target.value },
-    }));
+    setItem({ ...item, [event.target.name]: event.target.value });
   };
 
   return (
@@ -139,16 +131,18 @@ export const AddItem = (props) => {
               shrink: true,
             }}
           />
-          <Button onClick={handleSubmit} variant="contained" color="primary">
-            Create New Item
-          </Button>
-          <Button
-            onClick={() => props.returnClose()}
-            variant="contained"
-            color="secondary"
-          >
-            Close Form
-          </Button>
+          <div>
+            <Button onClick={handleSubmit} variant="contained" color="primary">
+              Create New Item
+            </Button>
+            <Button
+              onClick={() => props.returnClose()}
+              variant="contained"
+              color="secondary"
+            >
+              Close Form
+            </Button>
+          </div>
         </form>
       </Paper>
     </div>
