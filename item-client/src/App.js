@@ -4,12 +4,14 @@ import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 import { ItemContainer } from "./components/Items/ItemContainer";
 
 import { LandingPage } from "./components/landingPage/landingPage";
+import { NotFound } from "./components/notFound";
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route exact path='/' component={LandingPage} />
+        <Route path='/' component={NotFound} />
       </Switch>
     </Router>
   );
