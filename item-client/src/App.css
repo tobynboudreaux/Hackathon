@@ -33,6 +33,17 @@
   margin: auto;
 }
 
+#add-item-form {
+  /* display: none; */
+  width: 50%;
+  padding: 5px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  /* border: 1px solid black; */
+  z-index: 9;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

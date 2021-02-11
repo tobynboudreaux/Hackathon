@@ -14,6 +14,7 @@ const useStyles = makeStyles({
   root: {
     width: 345,
     height: 400,
+    textAlign: "left",
   },
   media: {
     height: 140,
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const ItemCard = (props) => {
+export const ItemCard = ({ indItem }) => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -29,14 +30,21 @@ export const ItemCard = (props) => {
         <CardMedia
           className={classes.media}
           image={keyboard}
-          title="Contemplative Reptile"
+          title="Item Image"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Item: Need Field
+          <Typography gutterBottom variant="h6" component="h2">
+            Item: {indItem.name}
+            {console.log(indItem)}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Description: Need Field
+            Description: {indItem.description}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Quantity: {indItem.quantity}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            ID: {indItem.id}
           </Typography>
         </CardContent>
       </CardActionArea>

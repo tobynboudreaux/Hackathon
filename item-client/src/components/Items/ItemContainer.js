@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 import { ItemCard } from "./ItemCard";
+import { AddItem } from "./AddItem";
 
 const user = { user: { id: 1, username: "Toby", password: "RaginCajun" } };
 
@@ -51,7 +53,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ItemContainer = () => {
+  const [formDisplay, setFormDisplay] = useState("none");
+
   const classes = useStyles();
+
+  const displayForm = (event) => {
+    setFormDisplay("block");
+  };
+
+  const closeForm = (event) => {
+    setFormDisplay("none");
+  };
 
   const renderItems = () => {
     return items.map((indItem, idx) => {
@@ -66,9 +78,13 @@ export const ItemContainer = () => {
   return (
     <div id="item-container">
       <h1>Item Container</h1>
-      <Button variant="contained" color="primary">
+      <Button onClick={displayForm} variant="contained" color="primary">
         Add Item
       </Button>
+      {/* <div style={{ display: { formDisplay } }} id="add-item-form"> */}
+      <div style={{ display: `${formDisplay}` }} id="add-item-form">
+        <AddItem returnClose={closeForm} />
+      </div>
       <Grid
         container
         justify="center"
