@@ -13,13 +13,17 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import { TopNavBar } from '../components/landingPage/topNavBar';
+import { useHistory } from "react-router-dom";
 
 function Signup() {
+    let history = useHistory();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [failedSignup, setFailedSignup] = useState(false);
 
     const useStyles = makeStyles((theme) => ({
         paper: {
@@ -39,6 +43,9 @@ function Signup() {
         submit: {
           margin: theme.spacing(3, 0, 2),
         },
+        invalid: {
+            borderColor: '#ff1744'
+        }
       }));
 
       const classes = useStyles();
@@ -47,18 +54,23 @@ function Signup() {
           event.preventDefault();
 
         //add axios call once backend endpoint is made
+        if(username && password) {
         axios.post('http://localhost:8080/user', {
             username: username,
             password: password
           })
           .then(function (response) {
             console.log(response);
+            if(response.status == 201) {
+                localStorage.setItem('username', username);
+                history.push('/');
+            }
           })
           .catch(function (error) {
-            console.log(error);
+            setFailedSignup(true);
           });
       };
-
+      }
       const handleUsernameChange = event => {
           setUsername(event.target.value);
       };
@@ -80,6 +92,7 @@ function Signup() {
             Sign Up
           </Typography>
           <form className={classes.form} noValidate>
+            <div> {failedSignup ? <div><Alert severity="error">Username Already Exists!</Alert></div> : null}</div>
             <TextField
               onChange={handleUsernameChange}
               variant="outlined"

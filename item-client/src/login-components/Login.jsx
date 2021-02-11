@@ -12,12 +12,17 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import { TopNavBar } from '../components/landingPage/topNavBar';
+import { useHistory } from "react-router-dom";
 
 function Login() {
+    let history = useHistory();
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [failedLogin, setFailedLogin] = useState(false);
 
     const useStyles = makeStyles((theme) => ({
         paper: {
@@ -43,19 +48,28 @@ function Login() {
 
       const handleSubmit = event => {
           event.preventDefault();
-
+          setFailedLogin(false);
         //add axios call once backend endpoint is made
+        if(username && password) {
         axios.post('http://localhost:8080/user/auth', {
             username: username,
             password: password
           })
           .then(function (response) {
             console.log(response);
+            if(response.status == 200) {
+                localStorage.setItem('username', username);
+                history.push("/");
+           
+            }
           })
           .catch(function (error) {
             console.log(error);
+            setFailedLogin(true);
+            console.log("failed login", failedLogin);
           });
       };
+    }
 
       const handleUsernameChange = event => {
           setUsername(event.target.value);
@@ -79,6 +93,7 @@ function Login() {
             Sign in
           </Typography>
           <form className={classes.form} noValidate>
+            {failedLogin ? <div><Alert severity="error">Invalid Login Credentials</Alert></div> : null}
             <TextField
               onChange={handleUsernameChange}
               variant="outlined"

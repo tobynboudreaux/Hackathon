@@ -33,7 +33,11 @@ public class UserController {
 	@PostMapping("/auth")
 	public ResponseEntity<User> findUser(@RequestBody User u){
 		//Here we call database to get data 
-		return new ResponseEntity<User>(userService.loginWithUsernameAndPassword(u), HttpStatus.CREATED);
+		User user = userService.loginWithUsernameAndPassword(u);
+		if(user == null)
+			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+		else
+			return new ResponseEntity<User>(HttpStatus.OK);
 		
 	}
 }
