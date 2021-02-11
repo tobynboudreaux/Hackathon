@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
+import { TopNavBar } from '../components/landingPage/topNavBar';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -65,6 +66,9 @@ function Login() {
       }
 
     return (
+        <div>
+            <TopNavBar />
+        
         <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -116,6 +120,7 @@ function Login() {
           </form>
         </div>
       </Container>
+      </div>
     )
 }
 

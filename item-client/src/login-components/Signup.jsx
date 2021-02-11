@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import axios from 'axios';
+import { TopNavBar } from '../components/landingPage/topNavBar';
 
 function Signup() {
 
@@ -67,6 +68,8 @@ function Signup() {
       }
 
     return (
+        <div>
+        <TopNavBar />
         <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -114,6 +117,7 @@ function Signup() {
           </form>
         </div>
       </Container> 
+      </div>
     )
 }
 
