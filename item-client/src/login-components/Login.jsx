@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -43,6 +44,16 @@ function Login() {
           event.preventDefault();
 
         //add axios call once backend endpoint is made
+        axios.post('http://localhost:8080/user/auth', {
+            username: username,
+            password: password
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       };
 
       const handleUsernameChange = event => {
