@@ -1,19 +1,19 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { ItemCard } from "./components/Items/ItemCard";
+import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
 import { ItemContainer } from "./components/Items/ItemContainer";
+
+import { LandingPage } from "./components/landingPage/landingPage";
+import { NotFound } from "./components/notFound";
 
 function App() {
   return (
-    <div className="App">
-      <header>
-        <h2>App Component</h2>
-      </header>
-      <div>
-        <ItemContainer />
-        {/* <ItemCard /> */}
-      </div>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path='/' component={LandingPage} />
+        <Route path='/' component={NotFound} />
+      </Switch>
+    </Router>
   );
 }
 
