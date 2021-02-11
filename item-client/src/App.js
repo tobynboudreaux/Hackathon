@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { ItemCard } from "./components/Items/ItemCard";
 import { ItemContainer } from "./components/Items/ItemContainer";
+import CategoryContainer from "./components/categories/CategoryContainer";
 
 function App() {
   return (
@@ -10,8 +11,9 @@ function App() {
         <h2>App Component</h2>
       </header>
       <div>
-        <ItemContainer />
+        {/* <ItemContainer /> */}
         {/* <ItemCard /> */}
+        <CategoryContainer />
       </div>
     </div>
   );
