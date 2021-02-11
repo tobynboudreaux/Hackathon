@@ -12,8 +12,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 
-function Login() {
+function Signup() {
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -58,10 +60,10 @@ function Login() {
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <AssignmentIndIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -88,10 +90,6 @@ function Login() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -100,12 +98,12 @@ function Login() {
               className={classes.submit}
               onClick={handleSubmit}
             >
-              Sign In
+              Register
             </Button>
           </form>
         </div>
-      </Container>
+      </Container> 
     )
 }
 
-export default Login
+export default Signup
