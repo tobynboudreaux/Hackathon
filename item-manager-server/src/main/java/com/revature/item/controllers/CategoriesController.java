@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,5 +51,18 @@ public class CategoriesController {
 		else 
 			return new ResponseEntity<Categories>(HttpStatus.NOT_MODIFIED);
 	}
+	@PutMapping("/{id}")
+	public ResponseEntity<Categories> updateCategoryById(@RequestBody Categories categories, @PathVariable int id){
+		categories.setCategoryId(id);
+		Categories cat = categoriesService.updateCategory(categories);
+		if(cat == null) {
+			return new ResponseEntity<Categories>(HttpStatus.BAD_REQUEST);
+		}
+		else {
+			return new ResponseEntity<Categories>(cat, HttpStatus.OK);
+		}
+	}
+
+
 }	
 	
