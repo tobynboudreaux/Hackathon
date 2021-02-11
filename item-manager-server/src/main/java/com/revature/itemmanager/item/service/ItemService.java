@@ -1,12 +1,12 @@
-package com.revature.item-manager.item.service;
+package com.revature.itemmanager.item.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.item-manager.item.entity.Item;
-import com.revature.item-manager.item.repository.ItemRepository;
+import com.revature.itemmanager.item.entity.Item;
+import com.revature.itemmanager.item.repository.ItemRepository;
 
 @Service
 public class ItemService {

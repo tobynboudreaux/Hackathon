@@ -1,4 +1,4 @@
-package com.revature.item-manager.item.entity;
+package com.revature.itemmanager.item.entity;
 
 import java.util.List;
 

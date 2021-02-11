@@ -1,4 +1,4 @@
-package com.revature.item-manager.category.entity;
+package com.revature.itemmanager.category.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
