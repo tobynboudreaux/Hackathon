@@ -1,11 +1,11 @@
-package com.revature.item-manager.item.repository;
+package com.revature.itemmanager.item.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.revature.item-manager.item.entity.Item;
+import com.revature.itemmanager.item.entity.Item;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long>{

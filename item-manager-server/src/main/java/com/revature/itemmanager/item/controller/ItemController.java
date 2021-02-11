@@ -1,4 +1,4 @@
-package com.revature.item-manager.item.controller;
+package com.revature.itemmanager.item.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.item-manager.item.entity.Item;
-import com.revature.item-manager.item.service.ItemService;
+import com.revature.itemmanager.item.entity.Item;
+import com.revature.itemmanager.item.service.ItemService;
 
 @RestController
 @RequestMapping("/items")

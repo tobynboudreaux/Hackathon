@@ -1,13 +1,15 @@
-package com.revature.item-manager.category.service;
+package com.revature.itemmanager.category.service;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.revature.item-manager.category.service.Category;
-import com.revature.item-manager.category.repository.CategoryRepository;
+import com.revature.itemmanager.category.entity.Category;
+import com.revature.itemmanager.category.repository.CategoryRepository;
 
+@Service
 public class CategoryService {
 	
 	@Autowired

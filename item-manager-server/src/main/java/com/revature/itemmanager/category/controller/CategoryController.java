@@ -1,4 +1,4 @@
-package com.revature.item-manager.category.controller;
+package com.revature.itemmanager.category.controller;
 
 import java.util.List;
 
@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.item-manager.category.entity.Category;
-import com.revature.item-manager.category.service.CategoryService;
+import com.revature.itemmanager.category.entity.Category;
+import com.revature.itemmanager.category.service.CategoryService;
+
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
@@ -22,7 +23,7 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 	
-	@GetMapping
+	@GetMapping("/")
 	public List<Category> getAllCategory(){
 		
 		return categoryService.findAll();
@@ -33,7 +34,7 @@ public class CategoryController {
 		return categoryService.findCategoryById(id);
 	}
 	
-	@PostMapping
+	@PostMapping("/")
 	public ResponseEntity<Category> createCategoryBy(@RequestBody Category category){
 		try{
 			return new ResponseEntity<Category>(categoryService.createCategory(category), HttpStatus.CREATED);
