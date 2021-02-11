@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { ItemCard } from "./components/ItemCard";
-import { ItemContainer } from "./components/ItemContainer";
+import { ItemCard } from "./components/Items/ItemCard";
+import { ItemContainer } from "./components/Items/ItemContainer";
 
 function App() {
   return (
