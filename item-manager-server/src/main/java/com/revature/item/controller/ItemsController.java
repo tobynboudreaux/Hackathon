@@ -21,7 +21,7 @@ public class ItemsController {
 	@Autowired
 	private ItemsService itemsService;
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public List<Items> getAllItems() {
 		return itemsService.getAllItems();
 	}
@@ -31,7 +31,7 @@ public class ItemsController {
 		return itemsService.getItemById(id);
 	}
 	
-	@PostMapping("/")
+	@PostMapping("")
 	public Items saveItem(@RequestBody Items items) {
 		return itemsService.saveItem(items);
 	}

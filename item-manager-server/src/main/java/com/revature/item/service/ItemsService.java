@@ -40,6 +40,7 @@ public class ItemsService {
 		item.setDescription(itemObj.getDescription());
 		item.setCategoryId(itemObj.getCategoryId());
 		item.setUserId(itemObj.getUserId());
+		itemsRepository.save(item);
 		return item;
 	}
 }
