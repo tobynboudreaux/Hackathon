@@ -52,7 +52,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   modalStyle: {
-    width: 500,
+    width: 750,
+    position: "fixed",
+    left: 25,
+    top: 15,
   },
 }));
 
@@ -86,17 +89,19 @@ export const ItemContainer = () => {
       <Button onClick={displayForm} variant="contained" color="primary">
         Add Item
       </Button>
-      <div>
-        <Modal
-          // className={classes.modalStyle}
-          open={open}
-          onClose={closeForm}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-        >
+
+      <Modal
+        // className={classes.modalStyle}
+        open={open}
+        onClose={closeForm}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div id="add-item-form">
           <AddItem returnClose={closeForm} />
-        </Modal>
-      </div>
+        </div>
+      </Modal>
+
       {/* <div style={{ display: { formDisplay } }} id="add-item-form"> */}
       {/* <div style={{ display: `${formDisplay}` }} id="add-item-form">
         <AddItem returnClose={closeForm} />
