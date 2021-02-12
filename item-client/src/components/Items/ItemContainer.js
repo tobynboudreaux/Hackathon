@@ -73,10 +73,9 @@ export const ItemContainer = () => {
       (response) => {
         console.log(response.data);
         setItems(response.data);
-      },
-      [item]
+      }
     );
-  });
+  }, [item]);
 
   const displayForm = (event) => {
     setOpen(true);

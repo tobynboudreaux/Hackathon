@@ -56,7 +56,7 @@ function Login() {
             console.log(response);
             if(response.status == 200) {
                 localStorage.setItem('username', username);
-                history.push("/");
+                history.push("/items");
            
             }
           })
