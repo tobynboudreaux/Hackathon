@@ -17,19 +17,20 @@ const useStyles = makeStyles({
     textAlign: "left",
   },
   media: {
-    height: 140,
+    height: 200,
     margin: 2,
   },
 });
 
-export const ItemCard = ({ indItem }) => {
+export const ItemCard = ({ returnItemDelete, indItem }) => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
+      {console.log("returnItemDelete: ", returnItemDelete)}
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={keyboard}
+          image="https://picsum.photos/200/300?random=1"
           title="Item Image"
         />
         <CardContent>
@@ -52,7 +53,13 @@ export const ItemCard = ({ indItem }) => {
         <Button size="small" color="primary">
           Edit
         </Button>
-        <Button size="small" color="secondary">
+        <Button
+          onClick={() => {
+            returnItemDelete(indItem.id);
+          }}
+          size="small"
+          color="secondary"
+        >
           Remove
         </Button>
       </CardActions>

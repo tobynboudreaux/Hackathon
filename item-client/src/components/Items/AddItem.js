@@ -9,6 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import { sizing } from "@material-ui/system";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,8 +39,9 @@ export const AddItem = (props) => {
   const classes = useStyles();
 
   const [item, setItem] = useState({
-    categoryId: 0,
-    itemName: "",
+    userId: 1,
+    categoryId: 1,
+    name: "",
     quantity: 1,
     description: "",
     image: "",
@@ -48,14 +50,14 @@ export const AddItem = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("new item submitted!", item);
+    props.returnItemSubmit(item);
     setItem({
       categoryId: 0,
-      itemName: "",
+      name: "",
       quantity: 1,
       description: "",
       image: "",
     });
-    props.returnClose();
   };
 
   const handleChange = (event) => {
@@ -97,9 +99,9 @@ export const AddItem = (props) => {
           <TextField
             required
             id="filled-required"
-            name="itemName"
+            name="name"
             onChange={handleChange}
-            value={item.itemName}
+            value={item.name}
             label="Item Name:"
             variant="filled"
           />
