@@ -1,37 +1,45 @@
-import React, {useEffect, useState} from 'react'
-import CategoryCard from './CategoryCard';
+import React, { useEffect, useState } from "react";
+import { TopNavBar } from "../landingPage/topNavBar";
+import CategoryCard from "./CategoryCard";
+import axios from "axios";
 
 const CategoryContainer = () => {
+  const [categories, setCategories] = useState([]);
 
-    const [categories, setCategories] = useState([]);
+  const getCategories = async (e) => {
+    const dummyData = [
+      {
+        id: 1,
+        name: "Corsair PC Build",
+      },
+      {
+        id: 2,
+        name: "Razor PC Build",
+      },
+    ];
 
-    const getCategories = async (e) => {
-        const dummyData = 
-        [
-            {
-                "id": 1,
-                "name": "Corsair PC Build"
-            },
-            {
-                "id": 2,
-                "name": "Razor PC Build"
-            }
-        ]
+    // setCategories(dummyData);
+  };
 
-        setCategories(dummyData);
-    }
+  useEffect(() => {
+    axios.get("http://localhost:8080/category").then((response) => {
+      console.log(response.data);
+      setCategories(response.data);
+    });
+  }, []);
 
-    useEffect(() => {
-        getCategories()
-    }, [])
+  return (
+    <div>
+      <TopNavBar />
+      {categories.map((cat, idx) => (
+        <CategoryCard
+          key={idx}
+          category={cat.categoryName}
+          id={cat.categoryId}
+        />
+      ))}
+    </div>
+  );
+};
 
-    return (
-        <div>
-            {categories.map(cat => (
-                <CategoryCard category={cat} id={cat.id} />
-            ))}
-        </div>
-    )
-}
-
-export default CategoryContainer
+export default CategoryContainer;

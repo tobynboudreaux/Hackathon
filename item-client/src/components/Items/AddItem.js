@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
       width: "25ch",
     },
     formControl: {
-      margin: theme.spacing(1),
       minWidth: 200,
     },
     selectEmpty: {
@@ -47,6 +46,16 @@ export const AddItem = (props) => {
     image: "",
   });
 
+  const [category, setCategory] = useState(0);
+
+  const handleCategoryChange = (event) => {
+    // setCategory(event.target.value);
+    const newItem = item;
+    newItem.categoryId = event.target.value;
+    setItem(newItem);
+    console.log(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("new item submitted!", item);
@@ -60,6 +69,20 @@ export const AddItem = (props) => {
     });
   };
 
+  const getSelectCategories = () => {
+    if (props.categories.length > 0) {
+      return props.categories.map((category, idx) => {
+        return (
+          <MenuItem key={idx} value={category.categoryId}>
+            {category.categoryName}
+          </MenuItem>
+        );
+      });
+    } else {
+      return null;
+    }
+  };
+
   const handleChange = (event) => {
     setItem({ ...item, [event.target.name]: event.target.value });
   };
@@ -70,25 +93,24 @@ export const AddItem = (props) => {
         <h2>Add New Item</h2>
         <form className={classes.root} autoComplete="off">
           <div>
-            <FormControl variant="filled" className={classes.formControl}>
+            <FormControl className={classes.formControl}>
               <InputLabel
                 className={classes.inputLabel}
                 id="demo-simple-select-outlined-label"
               >
                 Select Category
               </InputLabel>
-              {/* <Select
+              <Select
                 labelId="demo-simple-select-outlined-label"
                 id="demo-simple-select-outlined"
-                className={classes.selectItem}
+                value={item.categoryId}
+                onChange={handleCategoryChange}
               >
-                <MenuItem value="">
+                <MenuItem value={0}>
                   <em>None</em>
                 </MenuItem>
-                {/* <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select> */}
+                {getSelectCategories()}
+              </Select>
             </FormControl>
             {/* <TextField
               id="filled-required"

@@ -5,18 +5,20 @@ import { ItemContainer } from "./components/Items/ItemContainer";
 
 import { LandingPage } from "./components/landingPage/landingPage";
 import { NotFound } from "./components/notFound";
-import  Login  from './login-components/Login';
-import  Signup from './login-components/Signup';
+import Login from "./login-components/Login";
+import Signup from "./login-components/Signup";
+import CategoryContainer from "./components/categories/CategoryContainer";
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path='/' component={LandingPage} />
-        
-        <Route exact path='/login' component={Login} />
-        <Route exact path='/signup' component={Signup} />
-        <Route path='/' component={NotFound} />
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/items" component={ItemContainer} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/categories" component={CategoryContainer} />
+        <Route path="/" component={NotFound} />
       </Switch>
     </Router>
   );

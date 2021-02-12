@@ -3,12 +3,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import { ItemCard } from "./ItemCard";
 import { AddItem } from "./AddItem";
 import Modal from "@material-ui/core/Modal";
 import axios from "axios";
+import { TopNavBar } from "../landingPage/topNavBar";
 
 const user = { user: { id: 1, username: "Toby", password: "RaginCajun" } };
 
@@ -58,25 +63,32 @@ const useStyles = makeStyles((theme) => ({
     left: 25,
     top: 15,
   },
+  formControl: {
+    minWidth: 200,
+    margin: 10,
+  },
 }));
 
 export const ItemContainer = () => {
   const [formDisplay, setFormDisplay] = useState("none");
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [items, setItems] = useState([]);
-  const [item, setItem] = useState({});
+  const [deletedItem, setDeletedItem] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState(0);
 
   const classes = useStyles();
 
   useEffect(() => {
-    axios.get("http://localhost:8080/items").then(
-      (response) => {
-        console.log(response.data);
+    axios.get("http://localhost:8080/category").then((response) => {
+      setCategories(response.data);
+      axios.get("http://localhost:8080/items").then((response) => {
         setItems(response.data);
-      },
-      [item]
-    );
-  });
+      });
+    });
+  }, [deletedItem, category]);
+
+  const getItems = () => {};
 
   const displayForm = (event) => {
     setOpen(true);
@@ -87,20 +99,49 @@ export const ItemContainer = () => {
   };
 
   const handleItemSubmit = (item) => {
-    console.log("handlesubmit called: ", item);
     axios.post("http://localhost:8080/items", item).then((response) => {
       closeForm();
-      setItem(response.data);
+      setCategory(response.data.categoryId);
     });
   };
 
+  const getSelectCategories = () => {
+    if (categories.length > 0) {
+      return categories.map((category, idx) => {
+        return (
+          <MenuItem key={idx} value={category.categoryId}>
+            {category.categoryName}
+          </MenuItem>
+        );
+      });
+    } else {
+      return null;
+    }
+  };
+
+  const handleSelectChange = (event) => {
+    setCategory(event.target.value);
+    console.log(categories, category);
+  };
+
   const handleItemDelete = (id) => {
-    axios.delete(`http://localhost:8080/items/${id}`).then(setItem({}));
+    axios.delete(`http://localhost:8080/items/${id}`).then((response) => {
+      setDeletedItem(response.config.url);
+    });
   };
 
   const renderItems = () => {
-    if (items.length > 0) {
+    if (items.length > 0 && category === 0) {
       return items.map((indItem, idx) => {
+        return (
+          <Grid key={idx} item>
+            <ItemCard returnItemDelete={handleItemDelete} indItem={indItem} />
+          </Grid>
+        );
+      });
+    } else if (items.length > 0) {
+      const newItems = items.filter((item) => item.categoryId === category);
+      return newItems.map((indItem, idx) => {
         return (
           <Grid key={idx} item>
             <ItemCard returnItemDelete={handleItemDelete} indItem={indItem} />
@@ -113,40 +154,55 @@ export const ItemContainer = () => {
   };
 
   return (
-    <div id="item-container">
-      <h1>Item Container</h1>
-      <Button onClick={displayForm} variant="contained" color="primary">
-        Add Item
-      </Button>
-
-      <Modal
-        // className={classes.modalStyle}
-        open={open}
-        onClose={closeForm}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <div id="add-item-form">
-          <AddItem
-            returnItemSubmit={handleItemSubmit}
-            returnClose={closeForm}
-          />
+    <>
+      <TopNavBar />
+      <div id="item-container">
+        <h1>Item Container</h1>
+        <Button onClick={displayForm} variant="contained" color="primary">
+          Add Item
+        </Button>
+        <div>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-simple-select-label">
+              Select Category
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={category}
+              onChange={handleSelectChange}
+            >
+              <MenuItem value={0}>All Categories</MenuItem>
+              {getSelectCategories()}
+            </Select>
+          </FormControl>
         </div>
-      </Modal>
+        <Modal
+          // className={classes.modalStyle}
+          open={open}
+          onClose={closeForm}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <div id="add-item-form">
+            <AddItem
+              categories={categories}
+              returnItemSubmit={handleItemSubmit}
+              returnClose={closeForm}
+            />
+          </div>
+        </Modal>
 
-      {/* <div style={{ display: { formDisplay } }} id="add-item-form"> */}
-      {/* <div style={{ display: `${formDisplay}` }} id="add-item-form">
-        <AddItem returnClose={closeForm} />
-      </div> */}
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-        className={classes.root}
-        spacing={2}
-      >
-        {renderItems()}
-      </Grid>
-    </div>
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          className={classes.root}
+          spacing={2}
+        >
+          {renderItems()}
+        </Grid>
+      </div>
+    </>
   );
 };
