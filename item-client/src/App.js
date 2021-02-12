@@ -12,13 +12,12 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route exact path="/items" component={ItemContainer} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/items" component={ItemContainer} />
-        <Route exact path="/categories" component={CategoryContainer} />
-        <Route path="/" component={NotFound} />
+        <Route exact path='/' component={LandingPage} />    
+        <Route exact path='/login' component={Login} />
+        <Route exact path='/signup' component={Signup} />
+        <Route exact path='/items' component={ItemContainer} />
+        <Route exact path='/categories' component={CategoryContainer} />
+        <Route path='/' component={NotFound} />
       </Switch>
     </Router>
   );
