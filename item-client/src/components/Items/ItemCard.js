@@ -31,7 +31,7 @@ export const ItemCard = ({ returnItemDelete, indItem }) => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={`https://picsum.photos/200/300?random&dummyParam=${counter++}`}
+          image={`https://picsum.photos/200/300?random&dummyParam=${++counter}`}
           title="Item Image"
         />
         <CardContent>
