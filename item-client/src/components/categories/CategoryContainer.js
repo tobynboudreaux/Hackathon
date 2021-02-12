@@ -1,8 +1,10 @@
+import axios from 'axios';
 import React, {useEffect, useState} from 'react'
 import CategoryCard from './CategoryCard';
 
 const CategoryContainer = () => {
 
+    const categoryUrl = 'http://localhost:8080/category'
     const [categories, setCategories] = useState([]);
 
     const getCategories = async (e) => {
@@ -17,8 +19,14 @@ const CategoryContainer = () => {
                 "name": "Razor PC Build"
             }
         ]
-
-        setCategories(dummyData);
+        try {
+            axios.get(
+                categoryUrl
+            ).then(resp => setCategories(resp.data))
+        } catch {
+            setCategories(dummyData)
+        }
+        
     }
 
     useEffect(() => {

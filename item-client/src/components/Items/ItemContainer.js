@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 import { ItemCard } from "./ItemCard";
+import { AddItem } from "./AddItem";
+import Modal from "@material-ui/core/Modal";
+import axios from "axios";
 
 const user = { user: { id: 1, username: "Toby", password: "RaginCajun" } };
 
-const items = [
+const testItems = [
   {
     id: 1,
     name: "Corsair Gaming Keyboard",
@@ -48,27 +52,91 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(2),
   },
+  modalStyle: {
+    width: 750,
+    position: "fixed",
+    left: 25,
+    top: 15,
+  },
 }));
 
 export const ItemContainer = () => {
+  const [formDisplay, setFormDisplay] = useState("none");
+  const [open, setOpen] = React.useState(false);
+  const [items, setItems] = useState([]);
+  const [item, setItem] = useState({});
+
   const classes = useStyles();
 
-  const renderItems = () => {
-    return items.map((indItem, idx) => {
-      return (
-        <Grid item>
-          <ItemCard indItem={indItem} />
-        </Grid>
-      );
+  useEffect(() => {
+    axios.get("http://localhost:8080/items").then(
+      (response) => {
+        console.log(response.data);
+        setItems(response.data);
+      }
+    );
+  }, [item]);
+
+  const displayForm = (event) => {
+    setOpen(true);
+  };
+
+  const closeForm = (event) => {
+    setOpen(false);
+  };
+
+  const handleItemSubmit = (item) => {
+    console.log("handlesubmit called: ", item);
+    axios.post("http://localhost:8080/items", item).then((response) => {
+      closeForm();
+      setItem(response.data);
     });
+  };
+
+  const handleItemDelete = (id) => {
+    axios.delete(`http://localhost:8080/items/${id}`).then(setItem({}));
+  };
+
+  const renderItems = () => {
+    if (items.length > 0) {
+      return items.map((indItem, idx) => {
+        return (
+          <Grid key={idx} item>
+            <ItemCard returnItemDelete={handleItemDelete} indItem={indItem} />
+          </Grid>
+        );
+      });
+    } else {
+      return null;
+    }
   };
 
   return (
     <div id="item-container">
       <h1>Item Container</h1>
-      <Button variant="contained" color="primary">
+      <Button onClick={displayForm} variant="contained" color="primary">
         Add Item
       </Button>
+
+      <Modal
+        // className={classes.modalStyle}
+        open={open}
+        onClose={closeForm}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div id="add-item-form">
+          <AddItem
+            returnItemSubmit={handleItemSubmit}
+            returnClose={closeForm}
+          />
+        </div>
+      </Modal>
+
+      {/* <div style={{ display: { formDisplay } }} id="add-item-form"> */}
+      {/* <div style={{ display: `${formDisplay}` }} id="add-item-form">
+        <AddItem returnClose={closeForm} />
+      </div> */}
       <Grid
         container
         justify="center"
