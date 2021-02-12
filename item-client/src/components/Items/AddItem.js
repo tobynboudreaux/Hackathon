@@ -70,13 +70,13 @@ export const AddItem = (props) => {
         <h2>Add New Item</h2>
         <form className={classes.root} autoComplete="off">
           <div>
-            <FormControl variant="filled" className={classes.formControl}>
+            {/* <FormControl variant="filled" className={classes.formControl}>
               <InputLabel
                 className={classes.inputLabel}
                 id="demo-simple-select-outlined-label"
               >
                 Select Category
-              </InputLabel>
+              </InputLabel> */}
               {/* <Select
                 labelId="demo-simple-select-outlined-label"
                 id="demo-simple-select-outlined"
@@ -88,7 +88,7 @@ export const AddItem = (props) => {
                 {/* <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
                 <MenuItem value={30}>Thirty</MenuItem>
-              </Select> */}
+              </Select> }
             </FormControl>
             {/* <TextField
               id="filled-required"
