@@ -14,29 +14,38 @@ const useStyles = makeStyles({
   root: {
     width: 345,
     height: 400,
+    textAlign: "left",
   },
   media: {
-    height: 140,
+    height: 200,
     margin: 2,
   },
 });
 
-export const ItemCard = (props) => {
+export const ItemCard = ({ returnItemDelete, indItem }) => {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
+      {console.log("returnItemDelete: ", returnItemDelete)}
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={keyboard}
-          title="Contemplative Reptile"
+          image="https://picsum.photos/200/300?random=1"
+          title="Item Image"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Item: Need Field
+          <Typography gutterBottom variant="h6" component="h2">
+            Item: {indItem.name}
+            {console.log(indItem)}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Description: Need Field
+            Description: {indItem.description}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Quantity: {indItem.quantity}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            ID: {indItem.id}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -44,7 +53,13 @@ export const ItemCard = (props) => {
         <Button size="small" color="primary">
           Edit
         </Button>
-        <Button size="small" color="secondary">
+        <Button
+          onClick={() => {
+            returnItemDelete(indItem.id);
+          }}
+          size="small"
+          color="secondary"
+        >
           Remove
         </Button>
       </CardActions>

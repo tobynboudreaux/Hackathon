@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import {Route, Switch, BrowserRouter as Router} from 'react-router-dom';
+import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { ItemContainer } from "./components/Items/ItemContainer";
 
 import { LandingPage } from "./components/landingPage/landingPage";
