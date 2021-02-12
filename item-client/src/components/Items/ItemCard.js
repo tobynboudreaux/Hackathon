@@ -24,19 +24,19 @@ const useStyles = makeStyles({
 
 export const ItemCard = ({ returnItemDelete, indItem }) => {
   const classes = useStyles();
+  let counter = 1;
+
   return (
     <Card className={classes.root}>
-      {console.log("returnItemDelete: ", returnItemDelete)}
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="https://picsum.photos/200/300?random=1"
+          image={`https://picsum.photos/200/300?random&dummyParam=${counter++}`}
           title="Item Image"
         />
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             Item: {indItem.name}
-            {console.log(indItem)}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             Description: {indItem.description}

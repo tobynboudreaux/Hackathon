@@ -20,6 +20,8 @@ const useStyles = makeStyles({
   },
 });
 const navLinks = [
+  { title: "Categories", path: "/categories" },
+  { title: "Items", path: "/items" },
   { title: "Login", path: "/login" },
   { title: "Sign Up", path: "/signup" },
 ];
