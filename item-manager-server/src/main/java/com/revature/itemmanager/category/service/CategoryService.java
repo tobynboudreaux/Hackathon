@@ -43,19 +43,17 @@ public class CategoryService {
 			return false;
 		}
 	}
-//	public boolean updateCategory(int id) {
-//		Optional<Category> category = categoryRepo.findByCategoryId(id);
-//		if(category.isPresent()){ 
-//			
-//		//	categoryRepo.save(null)
-//			return true;
-//		}else {
-//			return false;
-//		}
-//		
-//	
-//	}
-//	
+
+	
+	public Category updateCategory(Category categry) {
+		Optional<Category> category = categoryRepo.findByCategoryId(categry.getCategoryId());
+		if(category.isPresent()){ 
+			category.get().setCategoryName(categry.getCategoryName());	
+			return categoryRepo.save(category.get());
+		}else {
+			return null;
+		}
+	}
 	
 	
 	
