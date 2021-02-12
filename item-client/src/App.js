@@ -1,13 +1,12 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
-import { ItemContainer } from "./components/items/ItemContainer";
+import { ItemContainer } from "./components/Items/ItemContainer";
 import CategoryContainer from "./components/categories/CategoryContainer";
 import { LandingPage } from "./components/landingPage/landingPage";
 import { NotFound } from "./components/notFound";
 import Login from "./login-components/Login";
 import Signup from "./login-components/Signup";
-import CategoryContainer from "./components/categories/CategoryContainer";
 
 function App() {
   return (
