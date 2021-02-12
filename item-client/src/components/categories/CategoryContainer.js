@@ -6,6 +6,9 @@ import axios from "axios";
 const CategoryContainer = () => {
   const [categories, setCategories] = useState([]);
 
+  const categoryUrl = "http://localhost:8080/category";
+  const [categories, setCategories] = useState([]);
+
   const getCategories = async (e) => {
     const dummyData = [
       {
@@ -17,16 +20,12 @@ const CategoryContainer = () => {
         name: "Razor PC Build",
       },
     ];
-
-    // setCategories(dummyData);
+    try {
+      axios.get(categoryUrl).then((resp) => setCategories(resp.data));
+    } catch {
+      setCategories(dummyData);
+    }
   };
-
-  useEffect(() => {
-    axios.get("http://localhost:8080/category").then((response) => {
-      console.log(response.data);
-      setCategories(response.data);
-    });
-  }, []);
 
   return (
     <div>
