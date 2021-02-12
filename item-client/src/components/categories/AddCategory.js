@@ -3,10 +3,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Axios from 'axios';
 
-const AddCategory = () => {
+const AddCategory = ({boolAdd}) => {
 
     const [category, setCategory] = useState({});
-    const addCategoryUrl = '';
+    const addCategoryUrl = 'http://localhost:8080/category';
 
     const addCategory = async () => {
         await Axios.post(
@@ -14,12 +14,19 @@ const AddCategory = () => {
             category
         ).then(resp => console.log(resp.data));
     }
+
+    const editCategory = async () => {
+        await Axios.put(
+            addCategoryUrl + id,
+            category
+        ).then(resp => console.log(resp.data))
+    }
     
     return (
         <div>
             <form className={classes.root} noValidate autoComplete="off">
                 <TextField id="category-name" label="Category Name" variant="outlined" onChange={(e) => setCategory(e.target.value)} required/>
-                <Button type="submit" fullWidth  variant="contained" color="primary" className={classes.submit} onClick={addCategory}>Add Category</Button>
+                <Button type="submit" fullWidth  variant="contained" color="primary" className={classes.submit} onClick={boolAdd ? addCategory : editCategory}>Submit</Button>
             </form>
         </div>
     )
